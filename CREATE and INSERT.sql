@@ -24,6 +24,8 @@ INSERT INTO angajati values(SEQ_ANGAJAT.NEXTVAL, 'Ana', 'Andreea', '232323232332
 INSERT INTO angajati values(SEQ_ANGAJAT.NEXTVAL, 'Popescu', 'Andrei', '2323232323323', 'pizzer', '0747374365', TO_DATE('29/12/2015', 'DD/MM/YYYY'), 4500);
 INSERT INTO angajati values(SEQ_ANGAJAT.NEXTVAL, 'Axinte', 'Iulian', '2323232323323', 'livrator', '0744597365', TO_DATE('29/12/2015', 'DD/MM/YYYY'), 4500);
 
+select * from angajati;
+
 CREATE TABLE masini_livrare
     (serie_sasiu varchar(17),
     nr_inmatriculare varchar(8),
@@ -33,6 +35,8 @@ CREATE TABLE masini_livrare
 INSERT INTO masini_livrare values('VWZG8323245894MM9', 'B101PPN', TO_DATE('18/10/2021', 'DD/MM/YYYY'));
 INSERT INTO masini_livrare values('RNZG8323265874MM9', 'B102PPN', TO_DATE('19/10/2021', 'DD/MM/YYYY'));
 INSERT INTO masini_livrare values('RNZG8323845804MM9', 'B103PPN', TO_DATE('20/10/2021', 'DD/MM/YYYY'));
+
+select * from masini_livrare;
 
 CREATE TABLE clienti (id_client number(8),
     nume varchar(20),
@@ -52,6 +56,8 @@ INSERT INTO clienti VALUES(SEQ_CLIENT.NEXTVAL, 'Gaitan', 'Alex', '0744796365');
 INSERT INTO clienti VALUES(SEQ_CLIENT.NEXTVAL, 'Rotaru', 'George', '0744796365');
 INSERT INTO clienti VALUES(SEQ_CLIENT.NEXTVAL, 'Anton', 'Mihaela', '0744796365');
 INSERT INTO clienti VALUES(SEQ_CLIENT.NEXTVAL, 'Radulescu', 'Mihai', '0744796365');
+
+select * from clienti;
 
 
 CREATE TABLE comenzi
@@ -73,6 +79,8 @@ INSERT INTO comenzi VALUES(SEQ_COMENZI.NEXTVAL, 1, 'Calea Victoriei 18', 0);
 INSERT INTO comenzi VALUES(SEQ_COMENZI.NEXTVAL, 2, null, 0);
 INSERT INTO comenzi VALUES(SEQ_COMENZI.NEXTVAL, 3, 'Calea Victoriei 18', 0);
 
+select * from comenzi;
+
 CREATE TABLE mod_plata
     (id_plata number (8),
     CONSTRAINT mod_plata_pk PRIMARY KEY (id_plata));
@@ -87,6 +95,8 @@ NOCYCLE;
 INSERT INTO mod_plata VALUES(SEQ_MOD_PLATA.NEXTVAL);
 INSERT INTO mod_plata VALUES(SEQ_MOD_PLATA.NEXTVAL);
 INSERT INTO mod_plata VALUES(SEQ_MOD_PLATA.NEXTVAL);
+
+select * from mod_plata;
 
 CREATE TABLE produse
     (id_produs number(8),
@@ -108,6 +118,8 @@ INSERT INTO produse VALUES(SEQ_PRODUSE.NEXTVAL, 'English Breakfast', 500, 21);
 INSERT INTO produse VALUES(SEQ_PRODUSE.NEXTVAL, 'Pizza Carnivora', 480, 28);
 INSERT INTO produse VALUES(SEQ_PRODUSE.NEXTVAL, 'Pizza Quattro Formaggi', 350, 24.9);
 INSERT INTO produse VALUES(SEQ_PRODUSE.NEXTVAL, 'Fresh Portocale', 350, 12);
+
+select * from produse;
 
 CREATE TABLE ingrediente
     (id_ingredient number(8),
@@ -134,6 +146,9 @@ INSERT INTO ingrediente VALUES(SEQ_INGREDIENTE.NEXTVAL, 'bacon', 1);
 INSERT INTO ingrediente VALUES(SEQ_INGREDIENTE.NEXTVAL, 'tagliatelle', 10);
 INSERT INTO ingrediente VALUES(SEQ_INGREDIENTE.NEXTVAL, 'mozaarella', 5.5);
 
+select * from ingrediente;
+
+
 CREATE TABLE furnizori
     (id_furnizor number(8),
     nume varchar(30),
@@ -150,6 +165,8 @@ NOCYCLE;
 
 INSERT INTO furnizori VALUES(SEQ_FURNIZOR.NEXTVAL, 'Metro', '0773737373');
 INSERT INTO furnizori VALUES(SEQ_FURNIZOR.NEXTVAL, 'Lidl', '0779869373');
+
+select * from furnizori;
 
 CREATE TABLE receptii
     (id_receptie number(8),
@@ -178,6 +195,8 @@ INSERT INTO receptii VALUES(2, 8, TO_DATE('2/06/2022', 'DD/MM/YYYY'), 5, 1);
 INSERT INTO receptii VALUES(2, 9, TO_DATE('2/06/2022', 'DD/MM/YYYY'), 18.99, 10); 
 INSERT INTO receptii VALUES(2, 10, TO_DATE('2/06/2022', 'DD/MM/YYYY'), 11, 5.5); 
 
+select * from receptii;
+
 CREATE TABLE se_ocupa_de
     (id_comanda number(8),
     id_angajat number(8),
@@ -187,6 +206,8 @@ CREATE TABLE se_ocupa_de
 INSERT INTO se_ocupa_de VALUES(1, 7);
 INSERT INTO se_ocupa_de VALUES(2, 5);
 INSERT INTO se_ocupa_de VALUES(3, 7);
+
+select * from se_ocupa_de;
 
 CREATE TABLE are
     (id_produs number(8),
@@ -202,6 +223,8 @@ INSERT INTO are VALUES(1, 1, 1, 1);
 INSERT INTO are VALUES(2, 1, 1, 1);
 INSERT INTO are VALUES(5, 2, 6, 2);
 INSERT INTO are VALUES(6, 3, 4, 2);
+
+select * from are;
 
 CREATE TABLE contine
     (id_produs number(8),
@@ -227,3 +250,4 @@ INSERT INTO contine VALUES(5, 3, 0.2);
 INSERT INTO contine VALUES(5, 6, 0.025);
 INSERT INTO contine VALUES(6, 7, 1);
 
+select * from contine;
