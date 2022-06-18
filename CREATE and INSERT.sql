@@ -35,6 +35,8 @@ CREATE TABLE masini_livrare
 INSERT INTO masini_livrare values('VWZG8323245894MM9', 'B101PPN', TO_DATE('18/10/2021', 'DD/MM/YYYY'));
 INSERT INTO masini_livrare values('RNZG8323265874MM9', 'B102PPN', TO_DATE('19/10/2021', 'DD/MM/YYYY'));
 INSERT INTO masini_livrare values('RNZG8323845804MM9', 'B103PPN', TO_DATE('20/10/2021', 'DD/MM/YYYY'));
+INSERT INTO masini_livrare values('EKLD8323845804MM9', 'B104PPN', TO_DATE('21/10/2021', 'DD/MM/YYYY'));
+INSERT INTO masini_livrare values('PODD8323845804MM9', 'B105PPN', TO_DATE('22/10/2021', 'DD/MM/YYYY'));
 
 select * from masini_livrare;
 
@@ -60,27 +62,6 @@ INSERT INTO clienti VALUES(SEQ_CLIENT.NEXTVAL, 'Radulescu', 'Mihai', '0744796365
 select * from clienti;
 
 
-CREATE TABLE comenzi
-    (id_comanda number(8),
-    id_client number(8),
-    adresa varchar(512),
-    discount float(2),
-    CONSTRAINT comenzi_pk PRIMARY KEY(id_comanda),
-    CONSTRAINT comenzi_id_client_fk FOREIGN KEY(id_client) REFERENCES clienti(id_client));
-    
-CREATE SEQUENCE SEQ_COMENZI
-INCREMENT by 1
-START WITH 1
-MINVALUE 1
-MAXVALUE 10000000
-NOCYCLE;
-
-INSERT INTO comenzi VALUES(SEQ_COMENZI.NEXTVAL, 1, 'Calea Victoriei 18', 0);
-INSERT INTO comenzi VALUES(SEQ_COMENZI.NEXTVAL, 2, null, 0);
-INSERT INTO comenzi VALUES(SEQ_COMENZI.NEXTVAL, 3, 'Calea Victoriei 18', 0);
-
-select * from comenzi;
-
 CREATE TABLE mod_plata
     (id_plata number (8),
     CONSTRAINT mod_plata_pk PRIMARY KEY (id_plata));
@@ -95,8 +76,37 @@ NOCYCLE;
 INSERT INTO mod_plata VALUES(SEQ_MOD_PLATA.NEXTVAL);
 INSERT INTO mod_plata VALUES(SEQ_MOD_PLATA.NEXTVAL);
 INSERT INTO mod_plata VALUES(SEQ_MOD_PLATA.NEXTVAL);
+INSERT INTO mod_plata VALUES(SEQ_MOD_PLATA.NEXTVAL);
+INSERT INTO mod_plata VALUES(SEQ_MOD_PLATA.NEXTVAL);
 
 select * from mod_plata;
+
+
+CREATE TABLE comenzi
+    (id_comanda number(8),
+    id_client number(8),
+    id_plata number(8),
+    adresa varchar(512),
+    discount float(2),
+    CONSTRAINT comenzi_pk PRIMARY KEY(id_comanda),
+    CONSTRAINT comenzi_id_client_fk FOREIGN KEY(id_client) REFERENCES clienti(id_client),
+    CONSTRAINT comenzi_id_plata_fk FOREIGN KEY(id_plata) REFERENCES mod_plata(id_plata));
+    
+CREATE SEQUENCE SEQ_COMENZI
+INCREMENT by 1
+START WITH 1
+MINVALUE 1
+MAXVALUE 10000000
+NOCYCLE;
+
+INSERT INTO comenzi VALUES(SEQ_COMENZI.NEXTVAL, 1, 1, 'Calea Victoriei 18', 0);
+INSERT INTO comenzi VALUES(SEQ_COMENZI.NEXTVAL, 2, 2, null, 0);
+INSERT INTO comenzi VALUES(SEQ_COMENZI.NEXTVAL, 3, 3, 'Calea Victoriei 18', 0);
+INSERT INTO comenzi VALUES(SEQ_COMENZI.NEXTVAL, 4, 4, 'Str. Corneliu Coposu 3', 0);
+INSERT INTO comenzi VALUES(SEQ_COMENZI.NEXTVAL, 5, 5, 'Str. Mihai Eminescu nr. 3, bl. 100, sc. A, ap. 3', 0);
+
+select * from comenzi;
+
 
 CREATE TABLE produse
     (id_produs number(8),
@@ -144,7 +154,7 @@ INSERT INTO ingrediente VALUES(SEQ_INGREDIENTE.NEXTVAL, 'drojdie', 0.5);
 INSERT INTO ingrediente VALUES(SEQ_INGREDIENTE.NEXTVAL, 'portocale', 10);
 INSERT INTO ingrediente VALUES(SEQ_INGREDIENTE.NEXTVAL, 'bacon', 1);
 INSERT INTO ingrediente VALUES(SEQ_INGREDIENTE.NEXTVAL, 'tagliatelle', 10);
-INSERT INTO ingrediente VALUES(SEQ_INGREDIENTE.NEXTVAL, 'mozaarella', 5.5);
+INSERT INTO ingrediente VALUES(SEQ_INGREDIENTE.NEXTVAL, 'mozzarella', 5.5);
 
 select * from ingrediente;
 
@@ -165,17 +175,22 @@ NOCYCLE;
 
 INSERT INTO furnizori VALUES(SEQ_FURNIZOR.NEXTVAL, 'Metro', '0773737373');
 INSERT INTO furnizori VALUES(SEQ_FURNIZOR.NEXTVAL, 'Lidl', '0779869373');
+INSERT INTO furnizori VALUES(SEQ_FURNIZOR.NEXTVAL, 'Selgros', '0778964373');
+INSERT INTO furnizori VALUES(SEQ_FURNIZOR.NEXTVAL, 'Kaufland', '0779874103');
+INSERT INTO furnizori VALUES(SEQ_FURNIZOR.NEXTVAL, 'Carrefour', '0787536373');
 
 select * from furnizori;
 
 CREATE TABLE receptii
     (id_receptie number(8),
     id_ingredient number(8),
+    id_furnizor number(8),
     data_receptie date,
     pret_unitar float(10),
     cantitate float(10),
-    CONSTRAINT receptie_pk PRIMARY KEY (id_receptie, id_ingredient),
-    CONSTRAINT receptie_id_ingredient_fk FOREIGN KEY (id_ingredient) REFERENCES ingrediente(id_ingredient));
+    CONSTRAINT receptie_pk PRIMARY KEY (id_receptie, id_ingredient, id_furnizor),
+    CONSTRAINT receptie_id_ingredient_fk FOREIGN KEY (id_ingredient) REFERENCES ingrediente(id_ingredient),
+    CONSTRAINT receptie_id_furnizor_fk FOREIGN KEY(id_furnizor) REFERENCES furnizori(id_furnizor));
     
 CREATE SEQUENCE SEQ_RECEPTIE
 INCREMENT by 1
@@ -184,16 +199,16 @@ MINVALUE 1
 MAXVALUE 1000
 NOCYCLE;
 
-INSERT INTO receptii VALUES(SEQ_RECEPTIE.NEXTVAL, 1, TO_DATE('2/06/2022', 'DD/MM/YYYY'), 0.5, 50); 
-INSERT INTO receptii VALUES(1, 2, TO_DATE('2/06/2022', 'DD/MM/YYYY'), 4.33, 6); 
-INSERT INTO receptii VALUES(1, 3, TO_DATE('2/06/2022', 'DD/MM/YYYY'), 3.5, 50); 
-INSERT INTO receptii VALUES(1, 4, TO_DATE('2/06/2022', 'DD/MM/YYYY'), 23.5, 5); 
-INSERT INTO receptii VALUES(1, 5, TO_DATE('2/06/2022', 'DD/MM/YYYY'), 15.59, 10); 
-INSERT INTO receptii VALUES(SEQ_RECEPTIE.NEXTVAL, 6, TO_DATE('2/06/2022', 'DD/MM/YYYY'), 0.5, 0.5); 
-INSERT INTO receptii VALUES(2, 7, TO_DATE('2/06/2022', 'DD/MM/YYYY'), 1, 10); 
-INSERT INTO receptii VALUES(2, 8, TO_DATE('2/06/2022', 'DD/MM/YYYY'), 5, 1); 
-INSERT INTO receptii VALUES(2, 9, TO_DATE('2/06/2022', 'DD/MM/YYYY'), 18.99, 10); 
-INSERT INTO receptii VALUES(2, 10, TO_DATE('2/06/2022', 'DD/MM/YYYY'), 11, 5.5); 
+INSERT INTO receptii VALUES(SEQ_RECEPTIE.NEXTVAL, 1, 1, TO_DATE('2/06/2022', 'DD/MM/YYYY'), 0.5, 50); 
+INSERT INTO receptii VALUES(1, 2, 1, TO_DATE('2/06/2022', 'DD/MM/YYYY'), 4.33, 6); 
+INSERT INTO receptii VALUES(1, 3, 1, TO_DATE('2/06/2022', 'DD/MM/YYYY'), 3.5, 50); 
+INSERT INTO receptii VALUES(1, 4, 1, TO_DATE('2/06/2022', 'DD/MM/YYYY'), 23.5, 5); 
+INSERT INTO receptii VALUES(1, 5, 1, TO_DATE('2/06/2022', 'DD/MM/YYYY'), 15.59, 10); 
+INSERT INTO receptii VALUES(SEQ_RECEPTIE.NEXTVAL, 6, 2, TO_DATE('2/06/2022', 'DD/MM/YYYY'), 0.5, 0.5); 
+INSERT INTO receptii VALUES(2, 7, 2, TO_DATE('2/06/2022', 'DD/MM/YYYY'), 1, 10); 
+INSERT INTO receptii VALUES(2, 8, 2, TO_DATE('2/06/2022', 'DD/MM/YYYY'), 5, 1); 
+INSERT INTO receptii VALUES(2, 9, 2, TO_DATE('2/06/2022', 'DD/MM/YYYY'), 18.99, 10); 
+INSERT INTO receptii VALUES(2, 10, 2, TO_DATE('2/06/2022', 'DD/MM/YYYY'), 11, 5.5); 
 
 select * from receptii;
 
@@ -206,6 +221,8 @@ CREATE TABLE se_ocupa_de
 INSERT INTO se_ocupa_de VALUES(1, 7);
 INSERT INTO se_ocupa_de VALUES(2, 5);
 INSERT INTO se_ocupa_de VALUES(3, 7);
+INSERT INTO se_ocupa_de VALUES(4, 7);
+INSERT INTO se_ocupa_de VALUES(5, 7);
 
 select * from se_ocupa_de;
 
@@ -223,6 +240,8 @@ INSERT INTO are VALUES(1, 1, 1, 1);
 INSERT INTO are VALUES(2, 1, 1, 1);
 INSERT INTO are VALUES(5, 2, 6, 2);
 INSERT INTO are VALUES(6, 3, 4, 2);
+INSERT INTO are VALUES(6, 4, 4, 1);
+INSERT INTO are VALUES(6, 5, 4, 2);
 
 select * from are;
 
