@@ -17,12 +17,12 @@ MAXVALUE 1000
 NOCYCLE;
 
 INSERT INTO angajati values(SEQ_ANGAJAT.NEXTVAL, 'Mihai', 'Radu', '2323232323323', 'bucatar-sef', '0747347365', TO_DATE('29/12/2015', 'DD/MM/YYYY'), 4500);
-INSERT INTO angajati values(SEQ_ANGAJAT.NEXTVAL, 'Roman', 'Anastasia', '2323232323323', 'bucatar', '0747308635', TO_DATE('29/12/2015', 'DD/MM/YYYY'), 4500);
-INSERT INTO angajati values(SEQ_ANGAJAT.NEXTVAL, 'Bran', 'Andrei', '2323232323323', 'manager', '0747347365', TO_DATE('29/12/2015', 'DD/MM/YYYY'), 4500);
-INSERT INTO angajati values(SEQ_ANGAJAT.NEXTVAL, 'Paduraru', 'Adi', '2323232323323', 'barman', '0747349365', TO_DATE('29/12/2015', 'DD/MM/YYYY'), 4500);
-INSERT INTO angajati values(SEQ_ANGAJAT.NEXTVAL, 'Ana', 'Andreea', '2323232323323', 'ospatar', '0747893365', TO_DATE('29/12/2015', 'DD/MM/YYYY'), 4500);
-INSERT INTO angajati values(SEQ_ANGAJAT.NEXTVAL, 'Popescu', 'Andrei', '2323232323323', 'pizzer', '0747374365', TO_DATE('29/12/2015', 'DD/MM/YYYY'), 4500);
-INSERT INTO angajati values(SEQ_ANGAJAT.NEXTVAL, 'Axinte', 'Iulian', '2323232323323', 'livrator', '0744597365', TO_DATE('29/12/2015', 'DD/MM/YYYY'), 4500);
+INSERT INTO angajati values(SEQ_ANGAJAT.NEXTVAL, 'Roman', 'Anastasia', '2323232323323', 'bucatar', '0747308635', TO_DATE('29/12/2015', 'DD/MM/YYYY'), 3500);
+INSERT INTO angajati values(SEQ_ANGAJAT.NEXTVAL, 'Bran', 'Andrei', '2323232323323', 'manager', '0747347365', TO_DATE('29/12/2015', 'DD/MM/YYYY'), 4400);
+INSERT INTO angajati values(SEQ_ANGAJAT.NEXTVAL, 'Paduraru', 'Adi', '2323232323323', 'barman', '0747349365', TO_DATE('29/12/2015', 'DD/MM/YYYY'), 3000);
+INSERT INTO angajati values(SEQ_ANGAJAT.NEXTVAL, 'Ana', 'Andreea', '2323232323323', 'ospatar', '0747893365', TO_DATE('29/12/2015', 'DD/MM/YYYY'), 2500);
+INSERT INTO angajati values(SEQ_ANGAJAT.NEXTVAL, 'Popescu', 'Andrei', '2323232323323', 'pizzer', '0747374365', TO_DATE('29/12/2015', 'DD/MM/YYYY'), 4400);
+INSERT INTO angajati values(SEQ_ANGAJAT.NEXTVAL, 'Axinte', 'Iulian', '2323232323323', 'livrator', '0744597365', TO_DATE('29/12/2015', 'DD/MM/YYYY'), 2200);
 
 select * from angajati;
 
