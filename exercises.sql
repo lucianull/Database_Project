@@ -83,3 +83,33 @@ select * from produse;
 ROLLBACK;
 
 
+--	Să se listeze toate comenzile, clienții, plățile și angajații care s-au ocupat de acestea, 
+--	pentru toate comenzile în care angajatul cu funcția de pizzer a participat la crearea produselor 
+--	din comanda respectivă.
+
+SELECT Comenzi.id_comanda, Comenzi.adresa, Comenzi.discount, Comenzi.id_client, Modalitati.id_plata, Angajati.nume, Angajati.prenume, Angajati.id_angajat FROM comenzi Comenzi
+    FULL OUTER JOIN clienti Clienti ON(Comenzi.id_client=Clienti.id_client)
+    FULL OUTER JOIN mod_plata Modalitati ON(Comenzi.id_plata=Modalitati.id_plata)
+    FULL OUTER JOIN se_ocupa_de Ocupa ON(Ocupa.id_comanda=Comenzi.id_comanda)
+    FULL OUTER JOIN angajati Angajati ON(Ocupa.id_comanda=Comenzi.id_comanda and Ocupa.id_angajat=Angajati.id_angajat)
+    FULL OUTER JOIN are Are ON(Comenzi.id_comanda=Are.id_comanda)
+WHERE Are.id_comanda=Comenzi.id_comanda AND Are.id_angajat IN (SELECT id_angajat FROM angajati WHERE UPPER(functie)='PIZZER');
+
+
+--	Să se listeze toți angajații care au salariul mai mic de 3000 de RON.
+
+SELECT * FROM angajati 
+MINUS
+SELECT * FROM angajati
+WHERE salariu>=3000;
+
+
+--	Să se listeze toate produsele ce nu conțin mozzarella.
+
+SELECT p.id_produs, p.nume, p.gramaj, p.pret FROM produse p, contine c, ingrediente i
+GROUP BY p.id_produs, p.nume, p.gramaj, p.pret
+MINUS
+SELECT p.id_produs, p.nume, p.gramaj, p.pret FROM produse p, contine c, ingrediente i
+WHERE p.id_produs=c.id_produs AND c.id_ingredient=i.id_ingredient and i.nume='mozzarella';
+
+
